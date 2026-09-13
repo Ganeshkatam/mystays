@@ -14,4 +14,15 @@ export class ListingRepository {
     if(error) throw new Error('LISTING_PUBLISH_FAILED');
     return data;
   }
+  async search(filters:{city?:string;propertyType?:string;inventoryType?:string;minRent?:number;maxRent?:number;limit:number;offset:number}){
+    let query=this.db.from('listings').select('id,title,description,monthly_rent,deposit,available_from,published_at,properties!inner(id,name,property_type,locality,city,state,country_code),inventory!inner(id,inventory_type,label,occupancy_capacity,furnishing,status)').eq('status','published');
+    if(filters.city) query=query.ilike('properties.city',filters.city);
+    if(filters.propertyType) query=query.eq('properties.property_type',filters.propertyType);
+    if(filters.inventoryType) query=query.eq('inventory.inventory_type',filters.inventoryType);
+    if(filters.minRent!==undefined) query=query.gte('monthly_rent',filters.minRent);
+    if(filters.maxRent!==undefined) query=query.lte('monthly_rent',filters.maxRent);
+    const {data,error}=await query.order('published_at',{ascending:false}).range(filters.offset,filters.offset+filters.limit-1);
+    if(error) throw new Error('LISTING_SEARCH_FAILED');
+    return data ?? [];
+  }
 }
