@@ -1,1 +1,1 @@
-{"name":"@mystays/database","private":true,"version":"0.0.0","type":"module"}
+{"name":"@mystays/database","private":true,"version":"0.0.0","type":"module","dependencies":{"@supabase/supabase-js":"^2.57.0"},"devDependencies":{"typescript":"^5.9.2"}}
