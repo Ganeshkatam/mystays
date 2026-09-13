@@ -1,2 +1,37 @@
+import Link from 'next/link';
 import './provider.css';
-export default function ProviderDashboard(){return <main><nav className="nav"><a href="/"><strong>myStay</strong></a><div><a href="/provider/listings">Listings</a><a href="/provider/properties">Properties</a><a href="/notifications">Notifications</a></div></nav><section className="providerHero"><span className="eyebrow">PROVIDER WORKSPACE</span><h1>Manage your long-term rentals.</h1><p>Keep properties, listings, availability, media and renter inquiries in one workspace.</p></section><section className="dashboardGrid">{[['Listings','Create, edit and publish listings.','/provider/listings'],['Properties','Manage your rental properties.','/provider/properties'],['Inquiries','Respond to prospective renters.','/provider/inquiries'],['Availability','Keep inventory status current.','/provider/availability']].map(x=><a className="dashCard" href={x[2]} key={x[0]}><h2>{x[0]}</h2><p>{x[1]}</p><strong>Open →</strong></a>)}</section></main>}
+export default function ProviderDashboard() {
+  return (
+    <main>
+      <nav className="nav">
+        <Link href="/">
+          <strong>myStay</strong>
+        </Link>
+        <div>
+          <a href="/provider/listings">Listings</a>
+          <a href="/provider/properties">Properties</a>
+          <a href="/notifications">Notifications</a>
+        </div>
+      </nav>
+      <section className="providerHero">
+        <span className="eyebrow">PROVIDER WORKSPACE</span>
+        <h1>Manage your long-term rentals.</h1>
+        <p>Keep properties, listings, availability, media and renter inquiries in one workspace.</p>
+      </section>
+      <section className="dashboardGrid">
+        {[
+          ['Listings', 'Create, edit and publish listings.', '/provider/listings'],
+          ['Properties', 'Manage your rental properties.', '/provider/properties'],
+          ['Inquiries', 'Respond to prospective renters.', '/provider/inquiries'],
+          ['Availability', 'Keep inventory status current.', '/provider/availability'],
+        ].map((x) => (
+          <a className="dashCard" href={x[2]} key={x[0]}>
+            <h2>{x[0]}</h2>
+            <p>{x[1]}</p>
+            <strong>Open →</strong>
+          </a>
+        ))}
+      </section>
+    </main>
+  );
+}

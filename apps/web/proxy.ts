@@ -3,10 +3,15 @@ import { createServerClient } from '@supabase/ssr';
 
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
-    {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    return response;
+  }
+
+  try {
+    const supabase = createServerClient(supabaseUrl, supabaseKey, {
       cookies: {
         getAll: () => request.cookies.getAll(),
         setAll: (cookiesToSet) => {
@@ -16,9 +21,12 @@ export async function proxy(request: NextRequest) {
           }
         },
       },
-    },
-  );
-  await supabase.auth.getUser();
+    });
+    await supabase.auth.getUser();
+  } catch {
+    // If Supabase credentials are not yet configured or network is unreachable, pass through
+  }
+
   return response;
 }
 

@@ -1,5 +1,7 @@
 import Fastify from 'fastify';
 import { randomUUID } from 'node:crypto';
+import { fileURLToPath } from 'node:url';
+import { resolve } from 'node:path';
 import { registerListingRoutes } from './routes/v1/listings.js';
 import { registerInquiryRoutes } from './routes/v1/inquiries.js';
 import { registerListingMediaRoutes } from './routes/v1/listing-media.js';
@@ -38,7 +40,13 @@ app.setErrorHandler(async (error, request, reply) => {
   });
 });
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+const entryFile = process.argv[1];
+const isMainModule =
+  Boolean(entryFile) &&
+  (resolve(entryFile as string).toLowerCase() === fileURLToPath(import.meta.url).toLowerCase() ||
+    import.meta.url === `file://${entryFile}`);
+
+if (isMainModule) {
   const port = Number(process.env.PORT ?? '3001');
   await app.listen({ host: '0.0.0.0', port });
 }
