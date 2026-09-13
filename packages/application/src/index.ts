@@ -10,3 +10,4 @@ export * from './inventory/create-inventory';
 export * from './inventory/ports';
 export * from './listing/search-listings';
 export * from './listing/get-listing';
+export * from './listing/add-listing-media';
