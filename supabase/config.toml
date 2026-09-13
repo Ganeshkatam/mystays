@@ -1,0 +1,2 @@
+# Generated/local Supabase configuration is intentionally kept minimal in the repository bootstrap.
+# Run `supabase init` locally to generate the environment-specific CLI configuration.
