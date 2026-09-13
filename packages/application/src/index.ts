@@ -14,3 +14,4 @@ export * from './listing/add-listing-media';
 export * from './inventory/update-inventory-status';
 export * from './listing/update-listing';
 export * from './inquiry/create-inquiry';
+export * from './inquiry/update-inquiry';
