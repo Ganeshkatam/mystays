@@ -1,0 +1,2 @@
+import '../../forms.css';
+export default function NewPropertyPage(){return <main className="formPage"><a href="/provider/properties">← Properties</a><h1>Add property</h1><form className="editor"><label>Name<input required maxLength={160}/></label><label>Address<input required maxLength={300}/></label><label>City<input required maxLength={100}/></label><label>Property type<select defaultValue="residential"><option>residential</option><option>pg</option><option>shared</option></select></label><button>Create property</button></form></main>}
