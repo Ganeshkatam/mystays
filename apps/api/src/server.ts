@@ -8,7 +8,14 @@ import { registerPropertyRoutes } from './routes/v1/properties.js';
 import { registerProviderRoutes } from './routes/v1/providers.js';
 import { registerNotificationRoutes } from './routes/v1/notifications.js';
 
-const app = Fastify({ logger: true, genReqId: () => randomUUID() });
+const app = Fastify({ logger: true, genReqId: () => randomUUID(), bodyLimit: 1048576 });
+
+app.addHook('onSend', async (_request, reply) => {
+  reply.header('X-Content-Type-Options', 'nosniff');
+  reply.header('X-Frame-Options', 'DENY');
+  reply.header('Referrer-Policy', 'strict-origin-when-cross-origin');
+  reply.header('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+});
 
 app.get('/api/v1/health', async (request, reply) =>
   reply.send({ data: { status: 'ok' }, error: null, meta: { requestId: String(request.id) } }),
