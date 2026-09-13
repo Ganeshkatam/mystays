@@ -1,0 +1,1 @@
+export interface NotificationRepositoryPort { create(input:{user_id:string;type:string;title:string;body:string;entity_type:string;entity_id:string}):Promise<unknown>; listMine(userId:string):Promise<unknown[]>; markRead(id:string,userId:string):Promise<unknown>; }
