@@ -9,6 +9,11 @@ export class ListingRepository {
     if(error) throw new Error('LISTING_CREATE_FAILED');
     return data;
   }
+  async update(id:string,input:{title:string;description:string;monthly_rent:number;deposit:number}){
+    const {data,error}=await this.db.from('listings').update(input).eq('id',id).eq('status','draft').select('*').single();
+    if(error||!data) throw new Error('LISTING_UPDATE_FAILED');
+    return data;
+  }
   async publish(id:string){
     const {data,error}=await this.db.from('listings').update({status:'published',published_at:new Date().toISOString()}).eq('id',id).eq('status','draft').select('*').single();
     if(error) throw new Error('LISTING_PUBLISH_FAILED');
