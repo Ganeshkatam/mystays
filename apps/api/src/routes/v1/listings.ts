@@ -8,6 +8,19 @@ interface CreateListingBody { providerId:string; propertyId:string; inventoryId:
 interface ListingParams { id:string; }
 
 export async function registerListingRoutes(app: FastifyInstance): Promise<void> {
+  app.patch<{Params:ListingParams;Body:{title:string;description:string;monthlyRent:number;deposit:number}}>('/api/v1/listings/:id',{preHandler:async(r,p)=>authenticate(r,p)},async(request,reply)=>{
+    const requestId=String(request.id),token=getBearerToken(request);
+    if(!token)return reply.code(401).send({data:null,error:{code:'AUTHENTICATION_REQUIRED',message:'Authentication is required.'},meta:{requestId}});
+    try {
+      const {updateListing}=await import('@mystays/application');
+      const data=await updateListing(new ListingRepository(createDatabaseClient(process.env,token)),request.params.id,request.body);
+      return reply.send({data,error:null,meta:{requestId}});
+    } catch(error) {
+      if(error instanceof Error&&error.message==='VALIDATION_FAILED') return reply.code(422).send({data:null,error:{code:'VALIDATION_FAILED',message:'Listing update is invalid.'},meta:{requestId}});
+      throw error;
+    }
+  });
+
   app.get<{Params:ListingParams}>('/api/v1/listings/:id',{preHandler:async(r,p)=>authenticate(r,p)},async(request,reply)=>{
     const requestId=String(request.id),token=getBearerToken(request);
     if(!token)return reply.code(401).send({data:null,error:{code:'AUTHENTICATION_REQUIRED',message:'Authentication is required.'},meta:{requestId}});
