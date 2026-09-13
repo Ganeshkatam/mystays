@@ -6,3 +6,5 @@ export * from './provider/ports';
 
 export * from './property/create-property';
 export * from './property/ports';
+export * from './inventory/create-inventory';
+export * from './inventory/ports';
