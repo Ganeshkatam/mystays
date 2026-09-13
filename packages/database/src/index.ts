@@ -7,3 +7,4 @@ export * from './repositories/listing-repository';
 export * from './repositories/inventory-repository';
 export * from './repositories/listing-media-repository';
 export * from './repositories/inquiry-repository';
+export * from './repositories/notification-repository';
