@@ -1,93 +1,171 @@
-import { PremiumDropdown, type DropdownOption } from '../components/premium-dropdown';
+import Link from 'next/link';
 
-const types = [
-  ['Homes', 'Independent homes and apartments'],
-  ['PGs', 'Managed stays for long-term living'],
-  ['Shared rooms', 'Affordable rooms with compatible flatmates'],
+const categories = [
+  {
+    title: 'Homes',
+    description: 'Private apartments and independent homes for longer stays.',
+    href: '/listings?type=home',
+    icon: '⌂',
+  },
+  {
+    title: 'PGs',
+    description: 'Managed accommodation with practical long-term essentials.',
+    href: '/listings?type=pg',
+    icon: '▦',
+  },
+  {
+    title: 'Shared rooms',
+    description: 'Flexible shared living with transparent monthly pricing.',
+    href: '/listings?type=shared_room',
+    icon: '◫',
+  },
 ];
 
-const stayTypeOptions: DropdownOption[] = [
-  {
-    value: '',
-    label: 'Any stay type',
-    description: 'Explore all homes, PGs, and shared rooms',
-  },
-  {
-    value: 'home',
-    label: 'Homes & Apartments',
-    description: 'Private flats for families and professionals',
-    badge: 'Private',
-  },
-  {
-    value: 'pg',
-    label: 'Paying Guest (PG)',
-    description: 'Fully serviced stays with meals & housekeeping',
-    badge: 'Managed',
-  },
-  {
-    value: 'shared_room',
-    label: 'Shared Rooms',
-    description: 'Budget-friendly rooms with verified flatmates',
-    badge: 'Budget',
-  },
+const benefits = [
+  ['Long-term focused', 'Search around monthly living instead of short-stay noise.'],
+  ['Clear pricing', 'See monthly rent and important costs before you inquire.'],
+  ['Direct inquiries', 'Ask providers questions from the listing itself.'],
 ];
 
 export default function HomePage() {
   return (
     <main>
-      <nav className="nav">
-        <strong>myStay</strong>
-        <div>
-          <a href="/listings">Find a stay</a>
-          <a href="/provider/listings">List a property</a>
-          <a href="/notifications">Notifications</a>
+      <nav className="siteNav">
+        <Link className="brand" href="/">
+          myStay
+        </Link>
+
+        <div className="navLinks">
+          <Link href="/listings">Explore</Link>
+          <Link href="/provider">For providers</Link>
+          <Link href="/notifications">Notifications</Link>
+          <Link className="navCta" href="/auth">
+            Sign in
+          </Link>
         </div>
       </nav>
-      <section className="hero">
-        <span className="eyebrow">LONG-TERM LIVING, SIMPLIFIED</span>
-        <h1>Find a place that feels like home.</h1>
-        <p>Discover homes, PGs, and shared rooms built for longer stays.</p>
-        <form action="/listings" className="search">
-          <input
-            name="q"
-            placeholder="Search city, neighbourhood, or property"
-            aria-label="Search listings"
-          />
-          <PremiumDropdown
-            name="type"
-            defaultValue=""
-            options={stayTypeOptions}
-            placeholder="Any stay type"
-            variant="search"
-            ariaLabel="Filter by stay type"
-          />
-          <button>Search stays</button>
-        </form>
-      </section>
-      <section className="grid">
-        {types.map(([title, text]) => (
-          <article className="card" key={title}>
-            <div className="icon">⌂</div>
-            <h2>{title}</h2>
-            <p>{text}</p>
-            <a href="/listings">Explore →</a>
-          </article>
-        ))}
-      </section>
-      <section className="trust">
-        <div>
-          <strong>One account</strong>
-          <span>Web today, mobile later.</span>
+
+      <section className="heroSection">
+        <div className="heroCopy">
+          <span className="eyebrow">THE LONG-TERM RENTAL MARKETPLACE</span>
+          <h1>Find your next place to call home.</h1>
+          <p>
+            Discover homes, PGs, and shared rooms built around the realities
+            of long-term living.
+          </p>
+
+          <form action="/listings" className="heroSearch">
+            <label>
+              <span>Where</span>
+              <input
+                name="q"
+                placeholder="City, neighbourhood, or locality"
+              />
+            </label>
+
+            <label>
+              <span>Stay type</span>
+              <select name="type" defaultValue="">
+                <option value="">Any type</option>
+                <option value="home">Home</option>
+                <option value="pg">PG</option>
+                <option value="shared_room">Shared room</option>
+              </select>
+            </label>
+
+            <button type="submit">Search homes</button>
+          </form>
+
+          <div className="heroMeta">
+            <span>Monthly living</span>
+            <span>Flexible choices</span>
+            <span>Direct provider contact</span>
+          </div>
         </div>
-        <div>
-          <strong>Long-term first</strong>
-          <span>Designed around monthly living.</span>
-        </div>
-        <div>
-          <strong>Direct inquiries</strong>
-          <span>Talk to verified providers.</span>
+
+        <div className="heroVisual" aria-hidden="true">
+          <div className="visualCard visualMain">
+            <span className="visualTag">FEATURED STAY</span>
+            <div className="visualImage">
+              <span>2BHK</span>
+            </div>
+            <div className="visualDetails">
+              <div>
+                <strong>Sunlit Residence</strong>
+                <span>Indiranagar · Bengaluru</span>
+              </div>
+              <strong>₹28k <small>/ month</small></strong>
+            </div>
+          </div>
+
+          <div className="floatingCard floatingTop">
+            <span>AVAILABLE NOW</span>
+            <strong>Long-term</strong>
+          </div>
+
+          <div className="floatingCard floatingBottom">
+            <strong>3,200+</strong>
+            <span>ways to stay</span>
+          </div>
         </div>
       </section>
+
+      <section className="sectionBlock">
+        <div className="sectionHeading">
+          <div>
+            <span className="eyebrow">EXPLORE YOUR WAY</span>
+            <h2>Choose the kind of place that fits your life.</h2>
+          </div>
+          <Link href="/listings">View all stays →</Link>
+        </div>
+
+        <div className="categoryGrid">
+          {categories.map((category) => (
+            <Link className="categoryCard" href={category.href} key={category.title}>
+              <span className="categoryIcon">{category.icon}</span>
+              <span className="categoryNumber">0{categories.indexOf(category) + 1}</span>
+              <h3>{category.title}</h3>
+              <p>{category.description}</p>
+              <strong>Explore {category.title.toLowerCase()} →</strong>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="whySection">
+        <div>
+          <span className="eyebrow">WHY MYSTAY</span>
+          <h2>Built for the part of renting that happens after the search.</h2>
+        </div>
+
+        <div className="benefitList">
+          {benefits.map(([title, description], index) => (
+            <div className="benefit" key={title}>
+              <span>0{index + 1}</span>
+              <div>
+                <h3>{title}</h3>
+                <p>{description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="providerBanner">
+        <div>
+          <span className="eyebrow">FOR PROPERTY PROVIDERS</span>
+          <h2>Have a place people would love to live in?</h2>
+          <p>Manage listings, inventory, inquiries, and availability from one workspace.</p>
+        </div>
+        <Link className="bannerButton" href="/provider">
+          Open provider workspace →
+        </Link>
+      </section>
+
+      <footer className="siteFooter">
+        <strong>myStay</strong>
+        <span>Long-term living, simplified.</span>
+      </footer>
     </main>
   );
 }
