@@ -6,3 +6,5 @@ export interface ListingRepositoryPort {
 export interface ListingSearchRepositoryPort {
   search(filters:{city?:string;propertyType?:string;inventoryType?:string;minRent?:number;maxRent?:number;limit:number;offset:number}):Promise<unknown[]>;
 }
+
+export interface ListingDetailRepositoryPort { getPublishedById(id: string): Promise<unknown | null>; }
