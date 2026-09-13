@@ -1,0 +1,1 @@
+export interface InventoryRepositoryPort { create(input:Record<string,unknown>):Promise<unknown>; }
