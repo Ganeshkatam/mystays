@@ -1,0 +1,2 @@
+import './forms.css';
+export default function AuthPage(){return <main className="formPage"><a href="/">← myStay</a><h1>Welcome to myStay</h1><p>Sign in to manage inquiries, listings and notifications.</p><form className="editor"><label>Email<input type="email" required autoComplete="email"/></label><label>Password<input type="password" required minLength={8} autoComplete="current-password"/></label><button>Sign in</button><p>New here? Create an account from the authentication provider.</p></form></main>}
