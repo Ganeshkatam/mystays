@@ -1,11 +1,20 @@
 import Link from 'next/link';
 import '../provider.css';
-import './workspace.css';
+import '../workspace.css';
 
-const listings = [
-  ['Sunlit 2BHK', 'Indiranagar, Bengaluru', 'Home', '₹28,000', 'Published', '2 units'],
-  ['Green View PG', 'Kothrud, Pune', 'PG', '₹12,500', 'Published', '12 units'],
-  ['City Shared Room', 'HSR Layout, Bengaluru', 'Shared room', '₹9,000', 'Draft', '8 units'],
+interface ProviderListingItem {
+  title: string;
+  location: string;
+  type: string;
+  price: string;
+  status: string;
+  units: string;
+}
+
+const listings: ProviderListingItem[] = [
+  { title: 'Sunlit 2BHK', location: 'Indiranagar, Bengaluru', type: 'Home', price: '₹28,000', status: 'Published', units: '2 units' },
+  { title: 'Green View PG', location: 'Kothrud, Pune', type: 'PG', price: '₹12,500', status: 'Published', units: '12 units' },
+  { title: 'City Shared Room', location: 'HSR Layout, Bengaluru', type: 'Shared room', price: '₹9,000', status: 'Draft', units: '8 units' },
 ];
 
 export default function ProviderListingsPage() {
@@ -54,19 +63,19 @@ export default function ProviderListingsPage() {
         </div>
 
         <div className="listingRows">
-          {listings.map(([title, location, type, price, status, units]) => (
-            <article className="providerListingRow" key={title}>
+          {listings.map((item) => (
+            <article className="providerListingRow" key={item.title}>
               <div className="listingVisual">
-                <span>{type}</span>
+                <span>{item.type}</span>
               </div>
               <div className="rowMain">
-                <span className="rowType">{type}</span>
-                <h3>{title}</h3>
-                <p>{location}</p>
+                <span className="rowType">{item.type}</span>
+                <h3>{item.title}</h3>
+                <p>{item.location}</p>
               </div>
-              <div className="rowMetric"><span>Rent</span><strong>{price}<small> / mo</small></strong></div>
-              <div className="rowMetric"><span>Status</span><strong className={status.toLowerCase()}>{status}</strong></div>
-              <div className="rowMetric"><span>Inventory</span><strong>{units}</strong></div>
+              <div className="rowMetric"><span>Rent</span><strong>{item.price}<small> / mo</small></strong></div>
+              <div className="rowMetric"><span>Status</span><strong className={item.status.toLowerCase()}>{item.status}</strong></div>
+              <div className="rowMetric"><span>Inventory</span><strong>{item.units}</strong></div>
               <Link className="rowAction" href="/provider/listings/edit">Edit →</Link>
             </article>
           ))}

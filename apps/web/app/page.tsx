@@ -1,4 +1,13 @@
 import Link from 'next/link';
+import Image from 'next/image';
+import { PremiumDropdown, type DropdownOption } from '../components/premium-dropdown';
+
+const stayTypeOptions: DropdownOption[] = [
+  { value: '', label: 'Any stay type', description: 'Explore all homes, PGs, and shared rooms' },
+  { value: 'home', label: 'Homes & Apartments', description: 'Independent private flats', badge: 'Private' },
+  { value: 'pg', label: 'Paying Guest (PG)', description: 'Serviced stays with meals & Wi-Fi', badge: 'Managed' },
+  { value: 'shared_room', label: 'Shared Rooms', description: 'Affordable spaces with flatmates', badge: 'Budget' },
+];
 
 const categories = [
   {
@@ -6,18 +15,21 @@ const categories = [
     description: 'Private apartments and independent homes for longer stays.',
     href: '/listings?type=home',
     icon: '⌂',
+    image: '/images/home-apartment.jpg',
   },
   {
     title: 'PGs',
     description: 'Managed accommodation with practical long-term essentials.',
     href: '/listings?type=pg',
     icon: '▦',
+    image: '/images/pg-room.jpg',
   },
   {
     title: 'Shared rooms',
     description: 'Flexible shared living with transparent monthly pricing.',
     href: '/listings?type=shared_room',
     icon: '◫',
+    image: '/images/shared-room.jpg',
   },
 ];
 
@@ -63,15 +75,17 @@ export default function HomePage() {
               />
             </label>
 
-            <label>
-              <span>Stay type</span>
-              <select name="type" defaultValue="">
-                <option value="">Any type</option>
-                <option value="home">Home</option>
-                <option value="pg">PG</option>
-                <option value="shared_room">Shared room</option>
-              </select>
-            </label>
+            <div style={{ padding: '4px 8px', display: 'flex', flexDirection: 'column', gap: 4 }}>
+              <span style={{ fontSize: 10, textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--muted)', fontWeight: 700 }}>Stay type</span>
+              <PremiumDropdown
+                name="type"
+                defaultValue=""
+                options={stayTypeOptions}
+                placeholder="Any type"
+                variant="search"
+                ariaLabel="Stay type"
+              />
+            </div>
 
             <button type="submit">Search homes</button>
           </form>
@@ -87,7 +101,13 @@ export default function HomePage() {
           <div className="visualCard visualMain">
             <span className="visualTag">FEATURED STAY</span>
             <div className="visualImage">
-              <span>2BHK</span>
+              <Image
+                src="/images/home-apartment.jpg"
+                alt="Sunlit Residence"
+                width={430}
+                height={290}
+                priority
+              />
             </div>
             <div className="visualDetails">
               <div>
@@ -120,10 +140,17 @@ export default function HomePage() {
         </div>
 
         <div className="categoryGrid">
-          {categories.map((category) => (
+          {categories.map((category, index) => (
             <Link className="categoryCard" href={category.href} key={category.title}>
-              <span className="categoryIcon">{category.icon}</span>
-              <span className="categoryNumber">0{categories.indexOf(category) + 1}</span>
+              <div className="categoryThumb">
+                <Image
+                  src={category.image}
+                  alt={category.title}
+                  width={380}
+                  height={140}
+                />
+              </div>
+              <span className="categoryNumber">0{index + 1}</span>
               <h3>{category.title}</h3>
               <p>{category.description}</p>
               <strong>Explore {category.title.toLowerCase()} →</strong>

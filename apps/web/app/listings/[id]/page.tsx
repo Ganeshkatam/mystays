@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import './detail.css';
+import Image from 'next/image';
+import '../detail.css';
 
 const facts = [
   ['Bedrooms', '2'],
@@ -28,13 +29,46 @@ export default async function ListingDetailPage({
       <section className="detailPage">
         <div className="detailGallery">
           <div className="detailCover">
-            <span>HOME · FEATURED</span>
-            <strong>2BHK</strong>
+            <Image
+              src="/images/home-apartment.jpg"
+              alt="Sunlit 2BHK Interior"
+              fill
+              priority
+              className="detailCoverImg"
+            />
+            <div className="detailCoverOverlay">
+              <span>HOME · FEATURED</span>
+              <strong>2BHK</strong>
+            </div>
           </div>
           <div className="detailThumbs">
-            <div>Living room</div>
-            <div>Bedroom</div>
-            <div>Kitchen</div>
+            <div className="detailThumbItem">
+              <Image
+                src="/images/home-apartment.jpg"
+                alt="Living room"
+                fill
+                className="detailThumbImg"
+              />
+              <span className="detailThumbLabel">Living room</span>
+            </div>
+            <div className="detailThumbItem">
+              <Image
+                src="/images/detail-bedroom.jpg"
+                alt="Master bedroom"
+                fill
+                className="detailThumbImg"
+              />
+              <span className="detailThumbLabel">Bedroom</span>
+            </div>
+            <div className="detailThumbItem">
+              <Image
+                src="/images/detail-kitchen.jpg"
+                alt="Modular kitchen"
+                fill
+                className="detailThumbImg"
+              />
+              <span className="detailThumbLabel">Kitchen</span>
+            </div>
           </div>
         </div>
 

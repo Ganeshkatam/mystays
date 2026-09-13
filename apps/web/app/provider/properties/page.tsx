@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import './workspace.css';
+import '../workspace.css';
 
 const properties = [
   ['Green View Residence', 'Kothrud, Pune', 'Residential', '12', '9'],

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import '../marketplace.css';
 import { PremiumDropdown, type DropdownOption } from '../../components/premium-dropdown';
 
@@ -9,6 +10,7 @@ const listings = [
     location: 'Indiranagar, Bengaluru',
     price: '₹28,000',
     type: 'Home',
+    image: '/images/home-apartment.jpg',
     meta: '2 bed · 2 bath · Furnished',
     featured: true,
   },
@@ -18,6 +20,7 @@ const listings = [
     location: 'Kothrud, Pune',
     price: '₹12,500',
     type: 'PG',
+    image: '/images/pg-room.jpg',
     meta: 'Single room · Meals · Wi-Fi',
     featured: false,
   },
@@ -27,6 +30,7 @@ const listings = [
     location: 'HSR Layout, Bengaluru',
     price: '₹9,000',
     type: 'Shared room',
+    image: '/images/shared-room.jpg',
     meta: 'Shared room · Furnished · Wi-Fi',
     featured: false,
   },
@@ -36,6 +40,7 @@ const listings = [
     location: 'Baner, Pune',
     price: '₹21,000',
     type: 'Home',
+    image: '/images/parkside-1bhk.jpg',
     meta: '1 bed · 1 bath · Semi-furnished',
     featured: false,
   },
@@ -45,6 +50,7 @@ const listings = [
     location: 'Koramangala, Bengaluru',
     price: '₹14,000',
     type: 'PG',
+    image: '/images/metro-pg-room.jpg',
     meta: 'Single room · Housekeeping · Wi-Fi',
     featured: false,
   },
@@ -54,6 +60,7 @@ const listings = [
     location: 'Viman Nagar, Pune',
     price: '₹10,500',
     type: 'Shared room',
+    image: '/images/shared-room.jpg',
     meta: 'Shared room · 2 flatmates · Furnished',
     featured: false,
   },
@@ -189,10 +196,15 @@ export default async function ListingsPage({
         <section className="listingGrid">
           {visibleListings.map((listing) => (
             <article className="listing" key={listing.id}>
-              <Link href={'/listings/' + listing.id} className="photo">
-                <span className="photoLabel">{listing.type}</span>
-                <span className="photoMark">myStay</span>
-
+              <Link href={'/listings/' + listing.id} className="photoContainer">
+                <Image
+                  src={listing.image}
+                  alt={listing.title}
+                  width={600}
+                  height={340}
+                  className="photoImg"
+                />
+                <span className="photoTag">{listing.type}</span>
                 {listing.featured && (
                   <span className="featuredLabel">Featured</span>
                 )}
@@ -236,7 +248,7 @@ export default async function ListingsPage({
         <section className="emptyListings">
           <div className="emptyIcon">⌕</div>
           <span className="eyebrow">NO MATCHES</span>
-          <h2>We couldn't find that stay.</h2>
+          <h2>We couldn&apos;t find that stay.</h2>
           <p>
             Try a broader location or remove one of the filters to see more
             long-term options.

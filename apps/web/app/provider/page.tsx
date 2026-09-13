@@ -1,19 +1,31 @@
 import Link from 'next/link';
-import '../provider.css';
-import '../table.css';
+import './provider.css';
+import './table.css';
 
-const stats = [
-  ['12', 'Active listings'],
-  ['8', 'Available units'],
-  ['6', 'New inquiries'],
-  ['94%', 'Response rate'],
+interface ProviderStat {
+  value: string;
+  label: string;
+}
+
+interface ProviderAction {
+  title: string;
+  description: string;
+  href: string;
+  number: string;
+}
+
+const stats: ProviderStat[] = [
+  { value: '12', label: 'Active listings' },
+  { value: '8', label: 'Available units' },
+  { value: '6', label: 'New inquiries' },
+  { value: '94%', label: 'Response rate' },
 ];
 
-const actions = [
-  ['Listings', 'Create, publish, and manage your rental listings.', '/provider/listings', '01'],
-  ['Properties', 'Keep your physical properties and inventory organised.', '/provider/properties', '02'],
-  ['Inquiries', 'Respond to prospective renters and keep conversations moving.', '/provider/inquiries', '03'],
-  ['Availability', 'Keep rental availability accurate in real time.', '/provider/availability', '04'],
+const actions: ProviderAction[] = [
+  { title: 'Listings', description: 'Create, publish, and manage your rental listings.', href: '/provider/listings', number: '01' },
+  { title: 'Properties', description: 'Keep your physical properties and inventory organised.', href: '/provider/properties', number: '02' },
+  { title: 'Inquiries', description: 'Respond to prospective renters and keep conversations moving.', href: '/provider/inquiries', number: '03' },
+  { title: 'Availability', description: 'Keep rental availability accurate in real time.', href: '/provider/availability', number: '04' },
 ];
 
 export default function ProviderDashboard() {
@@ -38,10 +50,10 @@ export default function ProviderDashboard() {
       </section>
 
       <section className="statsGrid">
-        {stats.map(([value, label]) => (
-          <div className="statCard" key={label}>
-            <strong>{value}</strong>
-            <span>{label}</span>
+        {stats.map((stat) => (
+          <div className="statCard" key={stat.label}>
+            <strong>{stat.value}</strong>
+            <span>{stat.label}</span>
           </div>
         ))}
       </section>
@@ -56,12 +68,12 @@ export default function ProviderDashboard() {
         </div>
 
         <div className="dashboardGrid">
-          {actions.map(([title, description, href, number]) => (
-            <Link className="dashCard" href={href} key={title}>
-              <span className="dashNumber">{number}</span>
+          {actions.map((action) => (
+            <Link className="dashCard" href={action.href} key={action.title}>
+              <span className="dashNumber">{action.number}</span>
               <div>
-                <h2>{title}</h2>
-                <p>{description}</p>
+                <h2>{action.title}</h2>
+                <p>{action.description}</p>
               </div>
               <strong>Open workspace ↗</strong>
             </Link>
