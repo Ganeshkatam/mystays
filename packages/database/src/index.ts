@@ -5,3 +5,4 @@ export * from './repositories/provider-repository';
 export * from './repositories/property-repository';
 export * from './repositories/listing-repository';
 export * from './repositories/inventory-repository';
+export * from './repositories/listing-media-repository';
