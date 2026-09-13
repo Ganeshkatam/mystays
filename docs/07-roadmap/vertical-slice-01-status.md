@@ -1,13 +1,18 @@
 # Vertical Slice 01 Status
 
-## Foundation complete
+## Foundation
 - Database schema and RLS
 - Typed domain entities
 - Listing lifecycle policy
 - Listing validation
-- Supabase client boundary
-- Initial provider/property/listing repositories
-- Domain boundary tests
+- Shared Application package
+- Supabase SSR authentication boundary
+- API v1 listing creation endpoint
 
-## Next implementation
-Build authenticated server use cases and provider UI mutations. Client components must not directly mutate the database.
+## Next
+- Complete provider onboarding
+- Complete property/inventory repositories and use cases
+- Remove direct database calls from API handlers by injecting application use cases
+- Add authenticated integration tests for ownership and RLS
+- Implement listing publish endpoint through the Application layer
+- Build provider UI against the API
