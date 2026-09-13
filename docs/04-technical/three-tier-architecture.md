@@ -17,5 +17,13 @@ Presentation must never directly mutate PostgreSQL/Supabase.
 ## Client independence
 The API contract is the stable boundary. Future Android/iOS applications authenticate and call the same /api/v1 resources as web. Client-specific presentation code remains outside the Application tier.
 
+## Current API boundary
+The shared API is implemented in `apps/api`. Listing creation and publishing are served by:
+- `POST /api/v1/listings`
+- `POST /api/v1/listings/:id/publish`
+- `GET /api/v1/health`
+
+The web application's legacy listing API routes have been removed. Web UI code must call the shared API rather than introducing Next.js route handlers for domain operations.
+
 ## Deployment evolution
-The API/application can initially run in the same deployable as the web server if the boundary remains explicit. It can later be deployed independently without rewriting business logic.
+The API/application can initially run as an independent deployable. It can scale independently from the web client without rewriting business logic.
