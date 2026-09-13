@@ -11,3 +11,4 @@ export * from './inventory/ports';
 export * from './listing/search-listings';
 export * from './listing/get-listing';
 export * from './listing/add-listing-media';
+export * from './inventory/update-inventory-status';
