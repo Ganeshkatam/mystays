@@ -1,4 +1,4 @@
-create extension if not exists postgis;
+create extension if not exists postgis with schema extensions;
 
 create type public.user_status as enum ('active','suspended','deleted');
 create type public.provider_status as enum ('pending','active','suspended');
