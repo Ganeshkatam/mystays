@@ -1,6 +1,7 @@
 import Fastify from 'fastify';
 import { randomUUID } from 'node:crypto';
 import { registerListingRoutes } from './routes/v1/listings.js';
+import { registerListingMediaRoutes } from './routes/v1/listing-media.js';
 import { registerInventoryRoutes } from './routes/v1/inventory.js';
 import { registerPropertyRoutes } from './routes/v1/properties.js';
 import { registerProviderRoutes } from './routes/v1/providers.js';
@@ -12,6 +13,7 @@ app.get('/api/v1/health', async (request, reply) =>
 );
 
 await registerListingRoutes(app);
+await registerListingMediaRoutes(app);
 await registerInventoryRoutes(app);
 await registerPropertyRoutes(app);
 await registerProviderRoutes(app);
