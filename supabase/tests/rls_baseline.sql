@@ -1,0 +1,10 @@
+begin;
+select plan(6);
+select has_table('public','profiles');
+select has_table('public','providers');
+select has_table('public','properties');
+select has_table('public','inventory');
+select has_table('public','listings');
+select has_table('public','listing_media');
+select * from finish();
+rollback;
