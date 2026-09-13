@@ -1,0 +1,1 @@
+{"name":"@mystays/application","private":true,"version":"0.0.0","type":"module","dependencies":{"@mystays/domain":"workspace:*","@mystays/validation":"workspace:*","@mystays/database":"workspace:*"},"devDependencies":{"typescript":"^5.9.2"}}
