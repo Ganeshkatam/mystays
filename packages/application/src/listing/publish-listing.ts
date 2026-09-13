@@ -1,0 +1,4 @@
+import type { ListingRepository } from '@mystays/database';
+import { canPublishListing } from '@mystays/domain';
+import { ApplicationError } from './create-listing';
+export async function publishListing(repo:Pick<ListingRepository,'publish'>,listing:{status:string;title:string;description:string;monthlyRent:number;deposit:number},id:string){if(!canPublishListing({...listing,status:listing.status as 'draft'})) throw new ApplicationError('LISTING_NOT_PUBLISHABLE','Listing does not satisfy publication rules.');if(!id) throw new ApplicationError('LISTING_ID_REQUIRED','Listing id is required.');return repo.publish(id);}
