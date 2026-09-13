@@ -8,6 +8,20 @@ interface CreateListingBody { providerId:string; propertyId:string; inventoryId:
 interface ListingParams { id:string; }
 
 export async function registerListingRoutes(app: FastifyInstance): Promise<void> {
+  app.get<{Params:ListingParams}>('/api/v1/listings/:id',{preHandler:async(r,p)=>authenticate(r,p)},async(request,reply)=>{
+    const requestId=String(request.id),token=getBearerToken(request);
+    if(!token)return reply.code(401).send({data:null,error:{code:'AUTHENTICATION_REQUIRED',message:'Authentication is required.'},meta:{requestId}});
+    try {
+      const {getListing}=await import('@mystays/application');
+      const data=await getListing(new ListingRepository(createDatabaseClient(process.env,token)),request.params.id);
+      return reply.send({data,error:null,meta:{requestId}});
+    } catch(error) {
+      if(error instanceof Error && error.message==='INVALID_LISTING_ID') return reply.code(400).send({data:null,error:{code:'INVALID_LISTING_ID',message:'Listing ID is invalid.'},meta:{requestId}});
+      if(error instanceof Error && error.message==='LISTING_NOT_FOUND') return reply.code(404).send({data:null,error:{code:'NOT_FOUND',message:'Listing was not found.'},meta:{requestId}});
+      throw error;
+    }
+  });
+
   app.get<{Querystring:{city?:string;propertyType?:string;inventoryType?:string;minRent?:string;maxRent?:string;limit?:string;offset?:string}}>('/api/v1/listings',{preHandler:async(r,p)=>authenticate(r,p)},async(request,reply)=>{
     const requestId=String(request.id),token=getBearerToken(request);
     if(!token)return reply.code(401).send({data:null,error:{code:'AUTHENTICATION_REQUIRED',message:'Authentication is required.'},meta:{requestId}});
