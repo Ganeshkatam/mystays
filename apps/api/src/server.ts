@@ -6,6 +6,7 @@ import { registerListingMediaRoutes } from './routes/v1/listing-media.js';
 import { registerInventoryRoutes } from './routes/v1/inventory.js';
 import { registerPropertyRoutes } from './routes/v1/properties.js';
 import { registerProviderRoutes } from './routes/v1/providers.js';
+import { registerNotificationRoutes } from './routes/v1/notifications.js';
 
 const app = Fastify({ logger: true, genReqId: () => randomUUID() });
 
@@ -19,6 +20,7 @@ await registerListingMediaRoutes(app);
 await registerInventoryRoutes(app);
 await registerPropertyRoutes(app);
 await registerProviderRoutes(app);
+await registerNotificationRoutes(app);
 
 app.setErrorHandler(async (error, request, reply) => {
   app.log.error(error);
