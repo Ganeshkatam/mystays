@@ -6,6 +6,20 @@ import { authenticate, getBearerToken } from '../../auth.js';
 interface Body { propertyId:string; inventoryType:string; parentInventoryId?:string; label:string; occupancyCapacity:number; furnishing?:string; }
 
 export async function registerInventoryRoutes(app: FastifyInstance): Promise<void> {
+  app.patch<{Params:{id:string};Body:{status:'available'|'occupied'|'inactive'}}>('/api/v1/inventory/:id/status',{preHandler:async(r,p)=>authenticate(r,p)},async(request,reply)=>{
+    const requestId=String(request.id),token=getBearerToken(request),status=request.body?.status;
+    if(!token)return reply.code(401).send({data:null,error:{code:'AUTHENTICATION_REQUIRED',message:'Authentication is required.'},meta:{requestId}});
+    if(!['available','occupied','inactive'].includes(status??''))return reply.code(422).send({data:null,error:{code:'VALIDATION_FAILED',message:'Inventory status is invalid.'},meta:{requestId}});
+    try{
+      const {updateInventoryStatus}=await import('@mystays/application');
+      const data=await updateInventoryStatus(new InventoryRepository(createDatabaseClient(process.env,token)),request.params.id,status);
+      return reply.send({data,error:null,meta:{requestId}});
+    }catch(e){
+      if(e instanceof Error&&e.message==='INVALID_INVENTORY_STATUS')return reply.code(422).send({data:null,error:{code:'VALIDATION_FAILED',message:'Inventory status is invalid.'},meta:{requestId}});
+      throw e;
+    }
+  });
+
   app.post<{Body:Body}>('/api/v1/inventory',{preHandler:async(r,p)=>authenticate(r,p)},async(request,reply)=>{
     const requestId=String(request.id),token=getBearerToken(request);
     const b=request.body;
