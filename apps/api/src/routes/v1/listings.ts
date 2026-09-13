@@ -8,6 +8,20 @@ interface CreateListingBody { providerId:string; propertyId:string; inventoryId:
 interface ListingParams { id:string; }
 
 export async function registerListingRoutes(app: FastifyInstance): Promise<void> {
+  app.get<{Querystring:{city?:string;propertyType?:string;inventoryType?:string;minRent?:string;maxRent?:string;limit?:string;offset?:string}}>('/api/v1/listings',{preHandler:async(r,p)=>authenticate(r,p)},async(request,reply)=>{
+    const requestId=String(request.id),token=getBearerToken(request);
+    if(!token)return reply.code(401).send({data:null,error:{code:'AUTHENTICATION_REQUIRED',message:'Authentication is required.'},meta:{requestId}});
+    const q=request.query;
+    const limit=q.limit===undefined?20:Number(q.limit), offset=q.offset===undefined?0:Number(q.offset);
+    const minRent=q.minRent===undefined?undefined:Number(q.minRent), maxRent=q.maxRent===undefined?undefined:Number(q.maxRent);
+    if(!Number.isInteger(limit)||limit<1||limit>100||!Number.isInteger(offset)||offset<0||Number.isNaN(minRent)||Number.isNaN(maxRent)|| (minRent!==undefined&&minRent<0)||(maxRent!==undefined&&maxRent<0)||(minRent!==undefined&&maxRent!==undefined&&minRent>maxRent))
+      return reply.code(422).send({data:null,error:{code:'VALIDATION_FAILED',message:'Search filters are invalid.'},meta:{requestId}});
+    const db=createDatabaseClient(process.env,token);
+    const data=await import('@mystays/application').then(({searchListings})=>searchListings(new ListingRepository(db),{city:q.city?.trim()||undefined,propertyType:q.propertyType?.trim()||undefined,inventoryType:q.inventoryType?.trim()||undefined,minRent,maxRent,limit,offset}));
+    return reply.send({data,error:null,meta:{requestId}});
+  });
+
+
   app.post<{Body:CreateListingBody}>('/api/v1/listings',{preHandler:async(r,p)=>authenticate(r,p)},async(request,reply)=>{
     const requestId=String(request.id), token=getBearerToken(request);
     if(!token)return reply.code(401).send({data:null,error:{code:'AUTHENTICATION_REQUIRED',message:'Authentication is required.'},meta:{requestId}});
