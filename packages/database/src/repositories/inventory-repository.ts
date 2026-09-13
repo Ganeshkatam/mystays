@@ -12,6 +12,11 @@ export class InventoryRepository {
     if (error || !data) throw new Error('INVENTORY_CREATE_FAILED');
     return data as InventoryRecord;
   }
+  async updateStatus(id:string,status:'available'|'occupied'|'inactive'):Promise<InventoryRecord>{
+    const {data,error}=await this.db.from('inventory').update({status,updated_at:new Date().toISOString()}).eq('id',id).select('*').single();
+    if(error||!data) throw new Error('INVENTORY_STATUS_UPDATE_FAILED');
+    return data as InventoryRecord;
+  }
   async listOwn(propertyId: string): Promise<InventoryRecord[]> {
     const { data, error } = await this.db.from('inventory').select('*').eq('property_id', propertyId).order('created_at', { ascending: false });
     if (error) throw new Error('INVENTORY_LIST_FAILED');
