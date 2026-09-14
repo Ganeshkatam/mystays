@@ -71,131 +71,145 @@ export default async function HomePage() {
         </div>
       </nav>
 
-      <section className="heroSection">
-        <div className="heroCopy">
-          <div className="heroBadge">
-            <span className="heroBadgeDot" />
-            Verified Long-Term Stays
-          </div>
+      <div className="heroWrapper">
+        <div className="heroBackdrop">
+          <Image
+            src="/images/hero-bg.jpg"
+            alt="Modern residential living background"
+            fill
+            priority
+            sizes="100vw"
+            className="heroBackdropImage"
+          />
+          <div className="heroBackdropOverlay" />
+        </div>
 
-          <h1>Find your next place to call home.</h1>
-          <p>
-            Explore verified apartments, managed PGs, and shared spaces with
-            transparent monthly rent and direct provider inquiries.
-          </p>
-
-          <form action="/listings" className="heroSearch" method="GET">
-            <label>
-              <span>Where</span>
-              <input name="q" placeholder="City or neighbourhood..." />
-            </label>
-
-            <div
-              style={{
-                padding: "4px 12px",
-                display: "flex",
-                flexDirection: "column",
-                gap: 3,
-              }}
-            >
-              <span
-                style={{
-                  fontSize: 10,
-                  textTransform: "uppercase",
-                  letterSpacing: "1px",
-                  color: "var(--muted)",
-                  fontWeight: 700,
-                }}
-              >
-                Stay type
-              </span>
-              <PremiumDropdown
-                name="type"
-                defaultValue=""
-                options={stayTypeOptions}
-                placeholder="Any type"
-                variant="search"
-                ariaLabel="Stay type"
-              />
+        <section className="heroSection">
+          <div className="heroCopy">
+            <div className="heroBadge">
+              <span className="heroBadgeDot" />
+              Verified Long-Term Stays
             </div>
 
-            <button type="submit">Search Stays</button>
-          </form>
+            <h1>Find your next place to call home.</h1>
+            <p>
+              Explore verified apartments, managed PGs, and shared spaces with
+              transparent monthly rent and direct provider inquiries.
+            </p>
 
-          <div className="heroQuickChips">
-            <span>Popular:</span>
-            <Link href="/listings?q=Bengaluru">Bengaluru</Link>
-            <Link href="/listings?q=Pune">Pune</Link>
-            <Link href="/listings?type=home">Homes</Link>
-            <Link href="/listings?type=pg">PGs</Link>
-            <Link href="/listings?type=shared_room">Shared</Link>
-          </div>
+            <form action="/listings" className="heroSearch" method="GET">
+              <label>
+                <span>Where</span>
+                <input name="q" placeholder="City or neighbourhood..." />
+              </label>
 
-          <div className="heroMeta">
-            <span>Verified availability</span>
-            <span>Zero broker fees</span>
-            <span>Direct provider contact</span>
-          </div>
-        </div>
-
-        <div className="heroVisual">
-          <div className="floatingTop">
-            <span className="floatingTopDot" />
-            <span>Available for move-in</span>
-          </div>
-
-          {featuredStay && (
-            <Link
-              href={`/listings/${featuredStay.id}`}
-              className="visualCardMain"
-              aria-label={`View ${featuredStay.title}`}
-            >
-              <span className="visualTag">
-                {featuredStay.type.toUpperCase()} · VERIFIED
-              </span>
-              <div className="visualImage">
-                <Image
-                  src={featuredStay.image}
-                  alt={featuredStay.title}
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 100vw, 400px"
+              <div
+                style={{
+                  padding: "4px 12px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 3,
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: 10,
+                    textTransform: "uppercase",
+                    letterSpacing: "1px",
+                    color: "var(--muted)",
+                    fontWeight: 700,
+                  }}
+                >
+                  Stay type
+                </span>
+                <PremiumDropdown
+                  name="type"
+                  defaultValue=""
+                  options={stayTypeOptions}
+                  placeholder="Any type"
+                  variant="search"
+                  ariaLabel="Stay type"
                 />
               </div>
-              <div className="visualDetails">
-                <div>
-                  <strong>{featuredStay.title}</strong>
-                  <span>{featuredStay.location}</span>
+
+              <button type="submit">Search Stays</button>
+            </form>
+
+            <div className="heroQuickChips">
+              <span>Popular:</span>
+              <Link href="/listings?q=Bengaluru">Bengaluru</Link>
+              <Link href="/listings?q=Pune">Pune</Link>
+              <Link href="/listings?type=home">Homes</Link>
+              <Link href="/listings?type=pg">PGs</Link>
+              <Link href="/listings?type=shared_room">Shared</Link>
+            </div>
+
+            <div className="heroMeta">
+              <span>Verified availability</span>
+              <span>Zero broker fees</span>
+              <span>Direct provider contact</span>
+            </div>
+          </div>
+
+          <div className="heroVisual">
+            <div className="floatingTop">
+              <span className="floatingTopDot" />
+              <span>Available for move-in</span>
+            </div>
+
+            {featuredStay && (
+              <Link
+                href={`/listings/${featuredStay.id}`}
+                className="visualCardMain"
+                aria-label={`View ${featuredStay.title}`}
+              >
+                <span className="visualTag">
+                  {featuredStay.type.toUpperCase()} · VERIFIED
+                </span>
+                <div className="visualImage">
+                  <Image
+                    src={featuredStay.image}
+                    alt={featuredStay.title}
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 100vw, 400px"
+                  />
                 </div>
-                <strong>
-                  {featuredStay.price} <small>/ month</small>
-                </strong>
-              </div>
-            </Link>
-          )}
+                <div className="visualDetails">
+                  <div>
+                    <strong>{featuredStay.title}</strong>
+                    <span>{featuredStay.location}</span>
+                  </div>
+                  <strong>
+                    {featuredStay.price} <small>/ month</small>
+                  </strong>
+                </div>
+              </Link>
+            )}
 
-          {secondaryStay && (
-            <Link
-              href={`/listings/${secondaryStay.id}`}
-              className="visualSecondaryCard"
-              aria-label={`View ${secondaryStay.title}`}
-            >
-              <div className="visualSecondaryThumb">
-                <Image
-                  src={secondaryStay.image}
-                  alt={secondaryStay.title}
-                  fill
-                  sizes="46px"
-                />
-              </div>
-              <div className="visualSecondaryInfo">
-                <strong>{secondaryStay.title}</strong>
-                <span>{secondaryStay.price} / mo</span>
-              </div>
-            </Link>
-          )}
-        </div>
-      </section>
+            {secondaryStay && (
+              <Link
+                href={`/listings/${secondaryStay.id}`}
+                className="visualSecondaryCard"
+                aria-label={`View ${secondaryStay.title}`}
+              >
+                <div className="visualSecondaryThumb">
+                  <Image
+                    src={secondaryStay.image}
+                    alt={secondaryStay.title}
+                    fill
+                    sizes="46px"
+                  />
+                </div>
+                <div className="visualSecondaryInfo">
+                  <strong>{secondaryStay.title}</strong>
+                  <span>{secondaryStay.price} / mo</span>
+                </div>
+              </Link>
+            )}
+          </div>
+        </section>
+      </div>
 
       <section className="sectionBlock">
         <div className="sectionHeading">

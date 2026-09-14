@@ -80,10 +80,40 @@ select:focus {
   border: 1px solid var(--line);
   border-radius: 999px;
 }
+.heroWrapper {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 60px;
+  border-bottom: 1px solid rgba(24, 32, 24, 0.08);
+}
+.heroBackdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.heroBackdropImage {
+  object-fit: cover;
+  object-position: center 30%;
+  opacity: 0.35;
+}
+.heroBackdropOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(247, 246, 242, 0.98) 0%,
+    rgba(247, 246, 242, 0.94) 42%,
+    rgba(247, 246, 242, 0.72) 75%,
+    rgba(247, 246, 242, 0.88) 100%
+  );
+}
 .heroSection {
+  position: relative;
+  z-index: 1;
   max-width: 1240px;
-  margin: 15px auto 65px;
-  padding: 0 28px;
+  margin: 0 auto;
+  padding: 36px 28px 65px;
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: 50px;
@@ -133,7 +163,8 @@ select:focus {
   display: grid;
   grid-template-columns: 1.35fr 0.95fr auto;
   gap: 8px;
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
   border: 1px solid var(--line);
   padding: 8px;
   border-radius: 20px;
@@ -564,6 +595,15 @@ select:focus {
   .heroSection {
     grid-template-columns: 1fr;
     margin-bottom: 45px;
+    padding: 24px 20px 48px;
+  }
+  .heroBackdropOverlay {
+    background: linear-gradient(
+      180deg,
+      rgba(247, 246, 242, 0.98) 0%,
+      rgba(247, 246, 242, 0.94) 45%,
+      rgba(247, 246, 242, 0.9) 100%
+    );
   }
   .heroVisual {
     min-height: 460px;
