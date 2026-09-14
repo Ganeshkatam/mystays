@@ -5,7 +5,7 @@ import {
   type DropdownOption,
 } from "../../components/premium-dropdown";
 import { ListingCard } from "../../components/listing-card";
-import { listings } from "../../lib/listings-data";
+import { getPublishedListings } from "../../lib/listings-data";
 
 const filterOptions: DropdownOption[] = [
   {
@@ -45,19 +45,9 @@ export default async function ListingsPage({
   const currentQuery = params?.q?.trim() ?? "";
   const currentType = params?.type ?? "";
 
-  const visibleListings = listings.filter((listing) => {
-    const matchesType =
-      !currentType ||
-      listing.type.toLowerCase().replace(" ", "_") === currentType;
-
-    const query = currentQuery.toLowerCase();
-
-    const matchesQuery =
-      !query ||
-      listing.title.toLowerCase().includes(query) ||
-      listing.location.toLowerCase().includes(query);
-
-    return matchesType && matchesQuery;
+  const visibleListings = await getPublishedListings({
+    q: currentQuery,
+    type: currentType,
   });
 
   return (

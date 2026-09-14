@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import type { Listing } from "../lib/listings-data";
+import type { ListingCardData } from "../lib/listings-data";
 
-export function ListingCard({ listing }: { listing: Listing }) {
+export function ListingCard({ listing }: { listing: ListingCardData }) {
   return (
     <article className="listing">
       <Link href={`/listings/${listing.id}`} className="photoContainer">

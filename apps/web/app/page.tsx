@@ -5,7 +5,7 @@ import {
   type DropdownOption,
 } from "../components/premium-dropdown";
 import { ListingCard } from "../components/listing-card";
-import { listings } from "../lib/listings-data";
+import { getPublishedListings } from "../lib/listings-data";
 
 const stayTypeOptions: DropdownOption[] = [
   {
@@ -54,7 +54,9 @@ const categories = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const listings = await getPublishedListings();
+
   return (
     <main>
       <nav className="siteNav">
