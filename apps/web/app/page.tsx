@@ -12,7 +12,7 @@ const stayTypeOptions: DropdownOption[] = [
   {
     value: "home",
     label: "Homes & Apartments",
-    description: "Private flats",
+    description: "Private flats & apartments",
     badge: "Private",
   },
   {
@@ -53,6 +53,7 @@ const categories = [
 export default async function HomePage() {
   const listings = await getPublishedListings();
   const featuredStay = listings[0];
+  const secondaryStay = listings[1];
 
   return (
     <main>
@@ -72,10 +73,14 @@ export default async function HomePage() {
 
       <section className="heroSection">
         <div className="heroCopy">
-          <span className="eyebrow">LONG-TERM LIVING</span>
+          <div className="heroBadge">
+            <span className="heroBadgeDot" />
+            Verified Long-Term Stays
+          </div>
+
           <h1>Find your next place to call home.</h1>
           <p>
-            Verified apartments, managed PGs, and shared co-living spaces with
+            Explore verified apartments, managed PGs, and shared spaces with
             transparent monthly rent and direct provider inquiries.
           </p>
 
@@ -87,10 +92,10 @@ export default async function HomePage() {
 
             <div
               style={{
-                padding: "4px 8px",
+                padding: "4px 12px",
                 display: "flex",
                 flexDirection: "column",
-                gap: 4,
+                gap: 3,
               }}
             >
               <span
@@ -114,8 +119,17 @@ export default async function HomePage() {
               />
             </div>
 
-            <button type="submit">Find stays</button>
+            <button type="submit">Search Stays</button>
           </form>
+
+          <div className="heroQuickChips">
+            <span>Popular:</span>
+            <Link href="/listings?q=Bengaluru">Bengaluru</Link>
+            <Link href="/listings?q=Pune">Pune</Link>
+            <Link href="/listings?type=home">Homes</Link>
+            <Link href="/listings?type=pg">PGs</Link>
+            <Link href="/listings?type=shared_room">Shared</Link>
+          </div>
 
           <div className="heroMeta">
             <span>Verified availability</span>
@@ -124,21 +138,28 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {featuredStay && (
-          <Link
-            href={`/listings/${featuredStay.id}`}
-            className="heroVisual"
-            aria-label={`View ${featuredStay.title}`}
-          >
-            <div className="visualCard visualMain">
-              <span className="visualTag">FEATURED STAY</span>
+        <div className="heroVisual">
+          <div className="floatingTop">
+            <span className="floatingTopDot" />
+            <span>Available for move-in</span>
+          </div>
+
+          {featuredStay && (
+            <Link
+              href={`/listings/${featuredStay.id}`}
+              className="visualCardMain"
+              aria-label={`View ${featuredStay.title}`}
+            >
+              <span className="visualTag">
+                {featuredStay.type.toUpperCase()} · VERIFIED
+              </span>
               <div className="visualImage">
                 <Image
                   src={featuredStay.image}
                   alt={featuredStay.title}
-                  width={430}
-                  height={290}
+                  fill
                   priority
+                  sizes="(max-width: 768px) 100vw, 400px"
                 />
               </div>
               <div className="visualDetails">
@@ -150,13 +171,30 @@ export default async function HomePage() {
                   {featuredStay.price} <small>/ month</small>
                 </strong>
               </div>
-            </div>
-            <div className="floatingCard floatingTop">
-              <span>AVAILABLE NOW</span>
-              <strong>{featuredStay.type}</strong>
-            </div>
-          </Link>
-        )}
+            </Link>
+          )}
+
+          {secondaryStay && (
+            <Link
+              href={`/listings/${secondaryStay.id}`}
+              className="visualSecondaryCard"
+              aria-label={`View ${secondaryStay.title}`}
+            >
+              <div className="visualSecondaryThumb">
+                <Image
+                  src={secondaryStay.image}
+                  alt={secondaryStay.title}
+                  fill
+                  sizes="46px"
+                />
+              </div>
+              <div className="visualSecondaryInfo">
+                <strong>{secondaryStay.title}</strong>
+                <span>{secondaryStay.price} / mo</span>
+              </div>
+            </Link>
+          )}
+        </div>
       </section>
 
       <section className="sectionBlock">
