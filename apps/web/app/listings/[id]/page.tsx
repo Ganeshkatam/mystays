@@ -1,12 +1,18 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import '../detail.css';
+import Link from "next/link";
+import Image from "next/image";
+import "../detail.css";
 
 const facts = [
-  ['Bedrooms', '2'],
-  ['Bathrooms', '2'],
-  ['Furnishing', 'Furnished'],
-  ['Availability', 'Available now'],
+  ["Bedrooms", "2"],
+  ["Bathrooms", "2"],
+  ["Furnishing", "Furnished"],
+  ["Availability", "Available now"],
+];
+
+const gallery = [
+  { src: "/images/home-apartment.jpg", label: "Living room" },
+  { src: "/images/detail-bedroom.jpg", label: "Bedroom" },
+  { src: "/images/detail-kitchen.jpg", label: "Kitchen" },
 ];
 
 export default async function ListingDetailPage({
@@ -19,7 +25,9 @@ export default async function ListingDetailPage({
   return (
     <main>
       <nav className="siteNav">
-        <Link className="brand" href="/">myStay</Link>
+        <Link className="brand" href="/">
+          myStay
+        </Link>
         <div className="navLinks">
           <Link href="/listings">Explore</Link>
           <Link href="/auth">Sign in</Link>
@@ -42,33 +50,12 @@ export default async function ListingDetailPage({
             </div>
           </div>
           <div className="detailThumbs">
-            <div className="detailThumbItem">
-              <Image
-                src="/images/home-apartment.jpg"
-                alt="Living room"
-                fill
-                className="detailThumbImg"
-              />
-              <span className="detailThumbLabel">Living room</span>
-            </div>
-            <div className="detailThumbItem">
-              <Image
-                src="/images/detail-bedroom.jpg"
-                alt="Master bedroom"
-                fill
-                className="detailThumbImg"
-              />
-              <span className="detailThumbLabel">Bedroom</span>
-            </div>
-            <div className="detailThumbItem">
-              <Image
-                src="/images/detail-kitchen.jpg"
-                alt="Modular kitchen"
-                fill
-                className="detailThumbImg"
-              />
-              <span className="detailThumbLabel">Kitchen</span>
-            </div>
+            {gallery.map(({ src, label }) => (
+              <div key={label} className="detailThumbItem">
+                <Image src={src} alt={label} fill className="detailThumbImg" />
+                <span className="detailThumbLabel">{label}</span>
+              </div>
+            ))}
           </div>
         </div>
 

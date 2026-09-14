@@ -1,42 +1,67 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { PremiumDropdown, type DropdownOption } from '../components/premium-dropdown';
+import Link from "next/link";
+import Image from "next/image";
+import {
+  PremiumDropdown,
+  type DropdownOption,
+} from "../components/premium-dropdown";
 
 const stayTypeOptions: DropdownOption[] = [
-  { value: '', label: 'Any stay type', description: 'Explore all homes, PGs, and shared rooms' },
-  { value: 'home', label: 'Homes & Apartments', description: 'Independent private flats', badge: 'Private' },
-  { value: 'pg', label: 'Paying Guest (PG)', description: 'Serviced stays with meals & Wi-Fi', badge: 'Managed' },
-  { value: 'shared_room', label: 'Shared Rooms', description: 'Affordable spaces with flatmates', badge: 'Budget' },
+  {
+    value: "",
+    label: "Any stay type",
+    description: "Explore all homes, PGs, and shared rooms",
+  },
+  {
+    value: "home",
+    label: "Homes & Apartments",
+    description: "Independent private flats",
+    badge: "Private",
+  },
+  {
+    value: "pg",
+    label: "Paying Guest (PG)",
+    description: "Serviced stays with meals & Wi-Fi",
+    badge: "Managed",
+  },
+  {
+    value: "shared_room",
+    label: "Shared Rooms",
+    description: "Affordable spaces with flatmates",
+    badge: "Budget",
+  },
 ];
 
 const categories = [
   {
-    title: 'Homes',
-    description: 'Private apartments and independent homes for longer stays.',
-    href: '/listings?type=home',
-    icon: '⌂',
-    image: '/images/home-apartment.jpg',
+    title: "Homes",
+    description: "Private apartments and independent homes for longer stays.",
+    href: "/listings?type=home",
+    icon: "⌂",
+    image: "/images/home-apartment.jpg",
   },
   {
-    title: 'PGs',
-    description: 'Managed accommodation with practical long-term essentials.',
-    href: '/listings?type=pg',
-    icon: '▦',
-    image: '/images/pg-room.jpg',
+    title: "PGs",
+    description: "Managed accommodation with practical long-term essentials.",
+    href: "/listings?type=pg",
+    icon: "▦",
+    image: "/images/pg-room.jpg",
   },
   {
-    title: 'Shared rooms',
-    description: 'Flexible shared living with transparent monthly pricing.',
-    href: '/listings?type=shared_room',
-    icon: '◫',
-    image: '/images/shared-room.jpg',
+    title: "Shared rooms",
+    description: "Flexible shared living with transparent monthly pricing.",
+    href: "/listings?type=shared_room",
+    icon: "◫",
+    image: "/images/shared-room.jpg",
   },
 ];
 
 const benefits = [
-  ['Long-term focused', 'Search around monthly living instead of short-stay noise.'],
-  ['Clear pricing', 'See monthly rent and important costs before you inquire.'],
-  ['Direct inquiries', 'Ask providers questions from the listing itself.'],
+  [
+    "Long-term focused",
+    "Search around monthly living instead of short-stay noise.",
+  ],
+  ["Clear pricing", "See monthly rent and important costs before you inquire."],
+  ["Direct inquiries", "Ask providers questions from the listing itself."],
 ];
 
 export default function HomePage() {
@@ -62,21 +87,35 @@ export default function HomePage() {
           <span className="eyebrow">THE LONG-TERM RENTAL MARKETPLACE</span>
           <h1>Find your next place to call home.</h1>
           <p>
-            Discover homes, PGs, and shared rooms built around the realities
-            of long-term living.
+            Discover homes, PGs, and shared rooms built around the realities of
+            long-term living.
           </p>
 
           <form action="/listings" className="heroSearch">
             <label>
               <span>Where</span>
-              <input
-                name="q"
-                placeholder="City, neighbourhood, or locality"
-              />
+              <input name="q" placeholder="City, neighbourhood, or locality" />
             </label>
 
-            <div style={{ padding: '4px 8px', display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <span style={{ fontSize: 10, textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--muted)', fontWeight: 700 }}>Stay type</span>
+            <div
+              style={{
+                padding: "4px 8px",
+                display: "flex",
+                flexDirection: "column",
+                gap: 4,
+              }}
+            >
+              <span
+                style={{
+                  fontSize: 10,
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                  color: "var(--muted)",
+                  fontWeight: 700,
+                }}
+              >
+                Stay type
+              </span>
               <PremiumDropdown
                 name="type"
                 defaultValue=""
@@ -114,7 +153,9 @@ export default function HomePage() {
                 <strong>Sunlit Residence</strong>
                 <span>Indiranagar · Bengaluru</span>
               </div>
-              <strong>₹28k <small>/ month</small></strong>
+              <strong>
+                ₹28k <small>/ month</small>
+              </strong>
             </div>
           </div>
 
@@ -141,7 +182,11 @@ export default function HomePage() {
 
         <div className="categoryGrid">
           {categories.map((category, index) => (
-            <Link className="categoryCard" href={category.href} key={category.title}>
+            <Link
+              className="categoryCard"
+              href={category.href}
+              key={category.title}
+            >
               <div className="categoryThumb">
                 <Image
                   src={category.image}
@@ -182,7 +227,10 @@ export default function HomePage() {
         <div>
           <span className="eyebrow">FOR PROPERTY PROVIDERS</span>
           <h2>Have a place people would love to live in?</h2>
-          <p>Manage listings, inventory, inquiries, and availability from one workspace.</p>
+          <p>
+            Manage listings, inventory, inquiries, and availability from one
+            workspace.
+          </p>
         </div>
         <Link className="bannerButton" href="/provider">
           Open provider workspace →

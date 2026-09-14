@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import React, { useState, useRef, useEffect, useId } from 'react';
-import './premium-dropdown.css';
+import React, { useState, useRef, useEffect, useId } from "react";
+import "./premium-dropdown.css";
 
 export interface DropdownOption {
   value: string;
   label: string;
   description?: string;
   badge?: string;
-  statusColor?: 'available' | 'occupied' | 'inactive';
+  statusColor?: "available" | "occupied" | "inactive";
 }
 
 export interface PremiumDropdownProps {
@@ -17,7 +17,7 @@ export interface PremiumDropdownProps {
   defaultValue?: string;
   options: DropdownOption[];
   placeholder?: string;
-  variant?: 'default' | 'search' | 'filter' | 'form' | 'status';
+  variant?: "default" | "search" | "filter" | "form" | "status";
   className?: string;
   ariaLabel?: string;
   onChange?: (value: string) => void;
@@ -26,16 +26,17 @@ export interface PremiumDropdownProps {
 export function PremiumDropdown({
   name,
   value,
-  defaultValue = '',
+  defaultValue = "",
   options,
-  placeholder = 'Select an option',
-  variant = 'default',
-  className = '',
+  placeholder = "Select an option",
+  variant = "default",
+  className = "",
   ariaLabel,
   onChange,
 }: PremiumDropdownProps) {
   const isControlled = value !== undefined;
-  const [uncontrolledValue, setUncontrolledValue] = useState<string>(defaultValue);
+  const [uncontrolledValue, setUncontrolledValue] =
+    useState<string>(defaultValue);
   const selectedValue = isControlled ? value : uncontrolledValue;
   const currentOption = options.find((opt) => opt.value === selectedValue);
 
@@ -49,15 +50,18 @@ export function PremiumDropdown({
   // Close on outside click
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     }
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
 
@@ -74,31 +78,42 @@ export function PremiumDropdown({
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (!isOpen) {
-      if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Enter' || e.key === ' ') {
+      if (
+        e.key === "ArrowDown" ||
+        e.key === "ArrowUp" ||
+        e.key === "Enter" ||
+        e.key === " "
+      ) {
         e.preventDefault();
         setIsOpen(true);
-        const currentIndex = options.findIndex((opt) => opt.value === selectedValue);
+        const currentIndex = options.findIndex(
+          (opt) => opt.value === selectedValue,
+        );
         setHighlightedIndex(currentIndex >= 0 ? currentIndex : 0);
       }
       return;
     }
 
     switch (e.key) {
-      case 'Escape':
+      case "Escape":
         e.preventDefault();
         setIsOpen(false);
         triggerRef.current?.focus();
         break;
-      case 'ArrowDown':
+      case "ArrowDown":
         e.preventDefault();
-        setHighlightedIndex((prev) => (prev < options.length - 1 ? prev + 1 : 0));
+        setHighlightedIndex((prev) =>
+          prev < options.length - 1 ? prev + 1 : 0,
+        );
         break;
-      case 'ArrowUp':
+      case "ArrowUp":
         e.preventDefault();
-        setHighlightedIndex((prev) => (prev > 0 ? prev - 1 : options.length - 1));
+        setHighlightedIndex((prev) =>
+          prev > 0 ? prev - 1 : options.length - 1,
+        );
         break;
-      case 'Enter':
-      case ' ':
+      case "Enter":
+      case " ":
         e.preventDefault();
         if (highlightedIndex >= 0 && highlightedIndex < options.length) {
           const opt = options[highlightedIndex];
@@ -107,7 +122,7 @@ export function PremiumDropdown({
           }
         }
         break;
-      case 'Tab':
+      case "Tab":
         setIsOpen(false);
         break;
     }
@@ -116,7 +131,7 @@ export function PremiumDropdown({
   return (
     <div
       ref={containerRef}
-      className={`premium-dropdown premium-dropdown--${variant} ${isOpen ? 'premium-dropdown--open' : ''} ${className}`}
+      className={`premium-dropdown premium-dropdown--${variant} ${isOpen ? "premium-dropdown--open" : ""} ${className}`}
       onKeyDown={handleKeyDown}
     >
       {name && <input type="hidden" name={name} value={selectedValue} />}
@@ -137,7 +152,9 @@ export function PremiumDropdown({
             />
           )}
           {currentOption ? (
-            <span className="premium-dropdown__selected-label">{currentOption.label}</span>
+            <span className="premium-dropdown__selected-label">
+              {currentOption.label}
+            </span>
           ) : (
             <span className="premium-dropdown__placeholder">{placeholder}</span>
           )}
@@ -174,8 +191,8 @@ export function PremiumDropdown({
               role="option"
               aria-selected={isSelected}
               className={`premium-dropdown__option ${
-                isSelected ? 'premium-dropdown__option--selected' : ''
-              } ${isHighlighted ? 'premium-dropdown__option--highlighted' : ''}`}
+                isSelected ? "premium-dropdown__option--selected" : ""
+              } ${isHighlighted ? "premium-dropdown__option--highlighted" : ""}`}
               onClick={() => handleSelect(option.value)}
               onMouseEnter={() => setHighlightedIndex(index)}
             >
@@ -186,17 +203,26 @@ export function PremiumDropdown({
                       className={`premium-dropdown__status-dot premium-dropdown__status-dot--${option.statusColor}`}
                     />
                   )}
-                  <span className="premium-dropdown__option-title">{option.label}</span>
+                  <span className="premium-dropdown__option-title">
+                    {option.label}
+                  </span>
                   {option.badge && (
-                    <span className="premium-dropdown__option-badge">{option.badge}</span>
+                    <span className="premium-dropdown__option-badge">
+                      {option.badge}
+                    </span>
                   )}
                 </div>
                 {option.description && (
-                  <span className="premium-dropdown__option-desc">{option.description}</span>
+                  <span className="premium-dropdown__option-desc">
+                    {option.description}
+                  </span>
                 )}
               </div>
               {isSelected && (
-                <span className="premium-dropdown__checkmark" aria-hidden="true">
+                <span
+                  className="premium-dropdown__checkmark"
+                  aria-hidden="true"
+                >
                   <svg
                     width="14"
                     height="14"

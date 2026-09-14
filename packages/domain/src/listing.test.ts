@@ -1,3 +1,28 @@
-import { describe,expect,it } from 'vitest';
-import { canPublishListing,canTransitionListing } from './listing';
-describe('listing policy',()=>{it('rejects incomplete publication',()=>expect(canPublishListing({status:'draft',title:'short',description:'valid enough description',monthlyRent:1,deposit:0})).toBe(false));it('accepts valid draft',()=>expect(canPublishListing({status:'draft',title:'Good long-term room',description:'A sufficiently detailed listing description.',monthlyRent:10000,deposit:20000})).toBe(true));it('rejects terminal transition',()=>expect(canTransitionListing('archived','published')).toBe(false));it('allows pause from published',()=>expect(canTransitionListing('published','paused')).toBe(true));});
+import { describe, expect, it } from "vitest";
+import { canPublishListing, canTransitionListing } from "./listing";
+describe("listing policy", () => {
+  it("rejects incomplete publication", () =>
+    expect(
+      canPublishListing({
+        status: "draft",
+        title: "short",
+        description: "valid enough description",
+        monthlyRent: 1,
+        deposit: 0,
+      }),
+    ).toBe(false));
+  it("accepts valid draft", () =>
+    expect(
+      canPublishListing({
+        status: "draft",
+        title: "Good long-term room",
+        description: "A sufficiently detailed listing description.",
+        monthlyRent: 10000,
+        deposit: 20000,
+      }),
+    ).toBe(true));
+  it("rejects terminal transition", () =>
+    expect(canTransitionListing("archived", "published")).toBe(false));
+  it("allows pause from published", () =>
+    expect(canTransitionListing("published", "paused")).toBe(true));
+});

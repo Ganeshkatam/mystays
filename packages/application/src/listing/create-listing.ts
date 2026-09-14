@@ -1,5 +1,45 @@
-import { validateListingInput } from '@mystays/validation';
-import type { ListingRepositoryPort } from './ports';
-export interface CreateListingCommand { providerId:string; propertyId:string; inventoryId:string; title:string; description:string; monthlyRent:number; deposit:number; }
-export class ApplicationError extends Error { constructor(readonly code:string,message:string){super(message);this.name='ApplicationError';} }
-export async function createListing(repo:ListingRepositoryPort,command:CreateListingCommand){const issues=validateListingInput(command);if(issues.length) throw new ApplicationError('VALIDATION_FAILED','Listing input is invalid.');if(!command.providerId||!command.propertyId||!command.inventoryId) throw new ApplicationError('REFERENCE_REQUIRED','Provider, property, and inventory are required.');return repo.create({provider_id:command.providerId,property_id:command.propertyId,inventory_id:command.inventoryId,title:command.title.trim(),description:command.description.trim(),monthly_rent:command.monthlyRent,deposit:command.deposit});}
+import { validateListingInput } from "@mystays/validation";
+import type { ListingRepositoryPort } from "./ports";
+export interface CreateListingCommand {
+  providerId: string;
+  propertyId: string;
+  inventoryId: string;
+  title: string;
+  description: string;
+  monthlyRent: number;
+  deposit: number;
+}
+export class ApplicationError extends Error {
+  constructor(
+    readonly code: string,
+    message: string,
+  ) {
+    super(message);
+    this.name = "ApplicationError";
+  }
+}
+export async function createListing(
+  repo: ListingRepositoryPort,
+  command: CreateListingCommand,
+) {
+  const issues = validateListingInput(command);
+  if (issues.length)
+    throw new ApplicationError(
+      "VALIDATION_FAILED",
+      "Listing input is invalid.",
+    );
+  if (!command.providerId || !command.propertyId || !command.inventoryId)
+    throw new ApplicationError(
+      "REFERENCE_REQUIRED",
+      "Provider, property, and inventory are required.",
+    );
+  return repo.create({
+    provider_id: command.providerId,
+    property_id: command.propertyId,
+    inventory_id: command.inventoryId,
+    title: command.title.trim(),
+    description: command.description.trim(),
+    monthly_rent: command.monthlyRent,
+    deposit: command.deposit,
+  });
+}

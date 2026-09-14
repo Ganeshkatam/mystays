@@ -1,2 +1,29 @@
-import type { NotificationRepositoryPort } from './ports';
-export async function createNotification(repo:NotificationRepositoryPort,input:{userId:string;type:string;title:string;body:string;entityType:string;entityId:string}){if(!/^[0-9a-f-]{36}$/i.test(input.userId)||!input.type.trim()||!input.title.trim()||!input.body.trim()||!/^[0-9a-f-]{36}$/i.test(input.entityId))throw new Error('INVALID_NOTIFICATION');return repo.create({user_id:input.userId,type:input.type.trim(),title:input.title.trim(),body:input.body.trim(),entity_type:input.entityType.trim(),entity_id:input.entityId});}
+import type { NotificationRepositoryPort } from "./ports";
+export async function createNotification(
+  repo: NotificationRepositoryPort,
+  input: {
+    userId: string;
+    type: string;
+    title: string;
+    body: string;
+    entityType: string;
+    entityId: string;
+  },
+) {
+  if (
+    !/^[0-9a-f-]{36}$/i.test(input.userId) ||
+    !input.type.trim() ||
+    !input.title.trim() ||
+    !input.body.trim() ||
+    !/^[0-9a-f-]{36}$/i.test(input.entityId)
+  )
+    throw new Error("INVALID_NOTIFICATION");
+  return repo.create({
+    user_id: input.userId,
+    type: input.type.trim(),
+    title: input.title.trim(),
+    body: input.body.trim(),
+    entity_type: input.entityType.trim(),
+    entity_id: input.entityId,
+  });
+}

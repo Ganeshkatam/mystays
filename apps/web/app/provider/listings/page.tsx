@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import '../provider.css';
-import '../workspace.css';
+import Link from "next/link";
+import "../provider.css";
+import "../workspace.css";
 
 interface ProviderListingItem {
   title: string;
@@ -12,9 +12,30 @@ interface ProviderListingItem {
 }
 
 const listings: ProviderListingItem[] = [
-  { title: 'Sunlit 2BHK', location: 'Indiranagar, Bengaluru', type: 'Home', price: '₹28,000', status: 'Published', units: '2 units' },
-  { title: 'Green View PG', location: 'Kothrud, Pune', type: 'PG', price: '₹12,500', status: 'Published', units: '12 units' },
-  { title: 'City Shared Room', location: 'HSR Layout, Bengaluru', type: 'Shared room', price: '₹9,000', status: 'Draft', units: '8 units' },
+  {
+    title: "Sunlit 2BHK",
+    location: "Indiranagar, Bengaluru",
+    type: "Home",
+    price: "₹28,000",
+    status: "Published",
+    units: "2 units",
+  },
+  {
+    title: "Green View PG",
+    location: "Kothrud, Pune",
+    type: "PG",
+    price: "₹12,500",
+    status: "Published",
+    units: "12 units",
+  },
+  {
+    title: "City Shared Room",
+    location: "HSR Layout, Bengaluru",
+    type: "Shared room",
+    price: "₹9,000",
+    status: "Draft",
+    units: "8 units",
+  },
 ];
 
 export default function ProviderListingsPage() {
@@ -35,7 +56,10 @@ export default function ProviderListingsPage() {
         <div>
           <span className="eyebrow">LISTINGS</span>
           <h1>Turn available inventory into places people can find.</h1>
-          <p>Build, publish, and maintain the listings that represent your rental inventory.</p>
+          <p>
+            Build, publish, and maintain the listings that represent your rental
+            inventory.
+          </p>
         </div>
         <Link className="workspacePrimary" href="/provider/listings/new">
           + Create listing
@@ -43,10 +67,22 @@ export default function ProviderListingsPage() {
       </section>
 
       <section className="workspaceStats">
-        <div><strong>3</strong><span>Total listings</span></div>
-        <div><strong>2</strong><span>Published</span></div>
-        <div><strong>1</strong><span>Draft</span></div>
-        <div><strong>22</strong><span>Units represented</span></div>
+        <div>
+          <strong>3</strong>
+          <span>Total listings</span>
+        </div>
+        <div>
+          <strong>2</strong>
+          <span>Published</span>
+        </div>
+        <div>
+          <strong>1</strong>
+          <span>Draft</span>
+        </div>
+        <div>
+          <strong>22</strong>
+          <span>Units represented</span>
+        </div>
       </section>
 
       <section className="providerTable">
@@ -73,10 +109,26 @@ export default function ProviderListingsPage() {
                 <h3>{item.title}</h3>
                 <p>{item.location}</p>
               </div>
-              <div className="rowMetric"><span>Rent</span><strong>{item.price}<small> / mo</small></strong></div>
-              <div className="rowMetric"><span>Status</span><strong className={item.status.toLowerCase()}>{item.status}</strong></div>
-              <div className="rowMetric"><span>Inventory</span><strong>{item.units}</strong></div>
-              <Link className="rowAction" href="/provider/listings/edit">Edit →</Link>
+              <div className="rowMetric">
+                <span>Rent</span>
+                <strong>
+                  {item.price}
+                  <small> / mo</small>
+                </strong>
+              </div>
+              <div className="rowMetric">
+                <span>Status</span>
+                <strong className={item.status.toLowerCase()}>
+                  {item.status}
+                </strong>
+              </div>
+              <div className="rowMetric">
+                <span>Inventory</span>
+                <strong>{item.units}</strong>
+              </div>
+              <Link className="rowAction" href="/provider/listings/edit">
+                Edit →
+              </Link>
             </article>
           ))}
         </div>

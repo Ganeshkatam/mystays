@@ -1,4 +1,26 @@
-import { canPublishListing } from '@mystays/domain';
-import type { ListingRepositoryPort } from './ports';
-import { ApplicationError } from './create-listing';
-export async function publishListing(repo:ListingRepositoryPort,listing:{status:string;title:string;description:string;monthlyRent:number;deposit:number},id:string){if(!id) throw new ApplicationError('LISTING_ID_REQUIRED','Listing id is required.');if(!canPublishListing({...listing,status:listing.status as 'draft'})) throw new ApplicationError('LISTING_NOT_PUBLISHABLE','Listing does not satisfy publication rules.');return repo.publish(id);}
+import { canPublishListing } from "@mystays/domain";
+import type { ListingRepositoryPort } from "./ports";
+import { ApplicationError } from "./create-listing";
+export async function publishListing(
+  repo: ListingRepositoryPort,
+  listing: {
+    status: string;
+    title: string;
+    description: string;
+    monthlyRent: number;
+    deposit: number;
+  },
+  id: string,
+) {
+  if (!id)
+    throw new ApplicationError(
+      "LISTING_ID_REQUIRED",
+      "Listing id is required.",
+    );
+  if (!canPublishListing({ ...listing, status: listing.status as "draft" }))
+    throw new ApplicationError(
+      "LISTING_NOT_PUBLISHABLE",
+      "Listing does not satisfy publication rules.",
+    );
+  return repo.publish(id);
+}

@@ -1,1 +1,18 @@
-{"name":"@mystays/database","private":true,"version":"0.0.0","type":"module","exports":{".":{"types":"./src/index.ts","default":"./src/index.ts"}},"dependencies":{"@supabase/supabase-js":"^2.57.0"},"devDependencies":{"typescript":"^5.9.2"}}
+{
+  "name": "@mystays/database",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.57.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}

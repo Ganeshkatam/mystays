@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import './provider.css';
-import './table.css';
+import Link from "next/link";
+import "./provider.css";
+import "./table.css";
 
 interface ProviderStat {
   value: string;
@@ -15,24 +15,47 @@ interface ProviderAction {
 }
 
 const stats: ProviderStat[] = [
-  { value: '12', label: 'Active listings' },
-  { value: '8', label: 'Available units' },
-  { value: '6', label: 'New inquiries' },
-  { value: '94%', label: 'Response rate' },
+  { value: "12", label: "Active listings" },
+  { value: "8", label: "Available units" },
+  { value: "6", label: "New inquiries" },
+  { value: "94%", label: "Response rate" },
 ];
 
 const actions: ProviderAction[] = [
-  { title: 'Listings', description: 'Create, publish, and manage your rental listings.', href: '/provider/listings', number: '01' },
-  { title: 'Properties', description: 'Keep your physical properties and inventory organised.', href: '/provider/properties', number: '02' },
-  { title: 'Inquiries', description: 'Respond to prospective renters and keep conversations moving.', href: '/provider/inquiries', number: '03' },
-  { title: 'Availability', description: 'Keep rental availability accurate in real time.', href: '/provider/availability', number: '04' },
+  {
+    title: "Listings",
+    description: "Create, publish, and manage your rental listings.",
+    href: "/provider/listings",
+    number: "01",
+  },
+  {
+    title: "Properties",
+    description: "Keep your physical properties and inventory organised.",
+    href: "/provider/properties",
+    number: "02",
+  },
+  {
+    title: "Inquiries",
+    description:
+      "Respond to prospective renters and keep conversations moving.",
+    href: "/provider/inquiries",
+    number: "03",
+  },
+  {
+    title: "Availability",
+    description: "Keep rental availability accurate in real time.",
+    href: "/provider/availability",
+    number: "04",
+  },
 ];
 
 export default function ProviderDashboard() {
   return (
     <main>
       <nav className="nav">
-        <Link href="/"><strong>myStay</strong></Link>
+        <Link href="/">
+          <strong>myStay</strong>
+        </Link>
         <div>
           <a href="/provider/listings">Listings</a>
           <a href="/provider/properties">Properties</a>
@@ -44,9 +67,14 @@ export default function ProviderDashboard() {
         <div>
           <span className="eyebrow">PROVIDER WORKSPACE</span>
           <h1>Everything you need to run long-term rentals.</h1>
-          <p>Manage inventory, listings, availability, and renter conversations from one focused workspace.</p>
+          <p>
+            Manage inventory, listings, availability, and renter conversations
+            from one focused workspace.
+          </p>
         </div>
-        <Link className="providerHeroAction" href="/provider/listings">Manage listings →</Link>
+        <Link className="providerHeroAction" href="/provider/listings">
+          Manage listings →
+        </Link>
       </section>
 
       <section className="statsGrid">

@@ -1,3 +1,84 @@
-import Link from 'next/link';
-import '../../forms.css';
-export default function NewListingPage(){return <main className="formPage"><Link href="/provider/listings">← Listings</Link><div className="formHeader"><div><span className="eyebrow">LISTING BUILDER</span><h1>Create listing</h1><p>Give renters the information they need to make a confident inquiry.</p></div></div><form className="editor"><section className="formSection"><h2>Basics</h2><p>Start with the identity of this stay.</p><div className="formGrid"><label>Title<input name="title" required maxLength={160} placeholder="e.g. Bright 2BHK near the metro" /></label><label>Stay type<select name="type" defaultValue="home"><option value="home">Home</option><option value="pg">PG</option><option value="shared_room">Shared room</option></select></label><label className="full">Description<textarea name="description" required maxLength={5000} placeholder="Describe the home, neighbourhood, and what makes the stay practical." /></label></div></section><section className="formSection"><h2>Monthly costs</h2><p>Keep the recurring and upfront amounts transparent.</p><div className="formGrid"><label>Monthly rent<input name="monthlyRent" type="number" min="0" required placeholder="28000" /></label><label>Security deposit<input name="deposit" type="number" min="0" required placeholder="56000" /></label></div></section><div className="formActions"><Link className="secondary" href="/provider/listings">Cancel</Link><button type="submit">Create draft</button></div></form></main>}
+import Link from "next/link";
+import "../../forms.css";
+export default function NewListingPage() {
+  return (
+    <main className="formPage">
+      <Link href="/provider/listings">← Listings</Link>
+      <div className="formHeader">
+        <div>
+          <span className="eyebrow">LISTING BUILDER</span>
+          <h1>Create listing</h1>
+          <p>
+            Give renters the information they need to make a confident inquiry.
+          </p>
+        </div>
+      </div>
+      <form className="editor">
+        <section className="formSection">
+          <h2>Basics</h2>
+          <p>Start with the identity of this stay.</p>
+          <div className="formGrid">
+            <label>
+              Title
+              <input
+                name="title"
+                required
+                maxLength={160}
+                placeholder="e.g. Bright 2BHK near the metro"
+              />
+            </label>
+            <label>
+              Stay type
+              <select name="type" defaultValue="home">
+                <option value="home">Home</option>
+                <option value="pg">PG</option>
+                <option value="shared_room">Shared room</option>
+              </select>
+            </label>
+            <label className="full">
+              Description
+              <textarea
+                name="description"
+                required
+                maxLength={5000}
+                placeholder="Describe the home, neighbourhood, and what makes the stay practical."
+              />
+            </label>
+          </div>
+        </section>
+        <section className="formSection">
+          <h2>Monthly costs</h2>
+          <p>Keep the recurring and upfront amounts transparent.</p>
+          <div className="formGrid">
+            <label>
+              Monthly rent
+              <input
+                name="monthlyRent"
+                type="number"
+                min="0"
+                required
+                placeholder="28000"
+              />
+            </label>
+            <label>
+              Security deposit
+              <input
+                name="deposit"
+                type="number"
+                min="0"
+                required
+                placeholder="56000"
+              />
+            </label>
+          </div>
+        </section>
+        <div className="formActions">
+          <Link className="secondary" href="/provider/listings">
+            Cancel
+          </Link>
+          <button type="submit">Create draft</button>
+        </div>
+      </form>
+    </main>
+  );
+}

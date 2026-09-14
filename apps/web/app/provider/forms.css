@@ -1,1 +1,129 @@
-.formPage{max-width:980px;margin:0 auto;padding:35px 24px 80px}.formPage>h1{font-size:clamp(40px,5vw,62px);line-height:1;letter-spacing:-2.5px;margin:15px 0 8px}.formPage>p{color:var(--muted);line-height:1.5}.editor{margin-top:30px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px;display:grid;gap:20px;max-width:760px;box-shadow:0 15px 40px rgba(24,32,24,.05)}.editor label{display:grid;gap:8px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px}.editor input,.editor textarea{font:inherit;text-transform:none;letter-spacing:0;border:1px solid var(--line);border-radius:11px;padding:13px;outline:0;background:#fff}.editor textarea{min-height:150px;resize:vertical;line-height:1.5}.editor input:focus,.editor textarea:focus{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}.editor button{border:0;background:var(--brand);color:#fff;border-radius:11px;padding:14px;font-weight:800;cursor:pointer}.formPage>a{color:var(--brand);font-size:12px}.formHeader{display:flex;justify-content:space-between;align-items:end;gap:20px}.formSection{border-top:1px solid var(--line);padding-top:20px;margin-top:5px}.formSection h2{font-size:18px;margin:0 0 4px}.formSection p{font-size:12px;color:var(--muted);margin:0 0 15px}.formGrid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.formGrid .full{grid-column:1/-1}.formActions{display:flex;gap:10px;justify-content:flex-end;border-top:1px solid var(--line);padding-top:18px}.formActions .secondary{background:#fff;color:var(--text);border:1px solid var(--line)}@media(max-width:600px){.formPage{padding:25px 15px 60px}.editor{padding:20px;border-radius:17px}.formGrid{grid-template-columns:1fr}.formGrid .full{grid-column:auto}.formActions{flex-direction:column}.formActions button{width:100%}}
+.formPage {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 35px 24px 80px;
+}
+.formPage > h1 {
+  font-size: clamp(40px, 5vw, 62px);
+  line-height: 1;
+  letter-spacing: -2.5px;
+  margin: 15px 0 8px;
+}
+.formPage > p {
+  color: var(--muted);
+  line-height: 1.5;
+}
+.editor {
+  margin-top: 30px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 28px;
+  display: grid;
+  gap: 20px;
+  max-width: 760px;
+  box-shadow: 0 15px 40px rgba(24, 32, 24, 0.05);
+}
+.editor label {
+  display: grid;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+.editor input,
+.editor textarea {
+  font: inherit;
+  text-transform: none;
+  letter-spacing: 0;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  padding: 13px;
+  outline: 0;
+  background: #fff;
+}
+.editor textarea {
+  min-height: 150px;
+  resize: vertical;
+  line-height: 1.5;
+}
+.editor input:focus,
+.editor textarea:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px var(--brand-soft);
+}
+.editor button {
+  border: 0;
+  background: var(--brand);
+  color: #fff;
+  border-radius: 11px;
+  padding: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.formPage > a {
+  color: var(--brand);
+  font-size: 12px;
+}
+.formHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+}
+.formSection {
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+  margin-top: 5px;
+}
+.formSection h2 {
+  font-size: 18px;
+  margin: 0 0 4px;
+}
+.formSection p {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0 0 15px;
+}
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+.formGrid .full {
+  grid-column: 1/-1;
+}
+.formActions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+}
+.formActions .secondary {
+  background: #fff;
+  color: var(--text);
+  border: 1px solid var(--line);
+}
+@media (max-width: 600px) {
+  .formPage {
+    padding: 25px 15px 60px;
+  }
+  .editor {
+    padding: 20px;
+    border-radius: 17px;
+  }
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+  .formGrid .full {
+    grid-column: auto;
+  }
+  .formActions {
+    flex-direction: column;
+  }
+  .formActions button {
+    width: 100%;
+  }
+}

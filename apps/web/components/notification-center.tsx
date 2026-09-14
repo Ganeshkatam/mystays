@@ -1,23 +1,28 @@
-'use client';
+"use client";
 
-import { useNotifications, type Notification } from '../lib/use-notifications';
+import { useNotifications, type Notification } from "../lib/use-notifications";
 
 interface NotificationCenterProps {
   userId: string;
   onRead?: (notification: Notification) => void;
 }
 
-export function NotificationCenter({ userId, onRead }: NotificationCenterProps) {
+export function NotificationCenter({
+  userId,
+  onRead,
+}: NotificationCenterProps) {
   const notifications = useNotifications(userId);
-  const unread = notifications.filter((notification) => notification.read_at === null).length;
+  const unread = notifications.filter(
+    (notification) => notification.read_at === null,
+  ).length;
 
   const markRead = async (notification: Notification) => {
     if (notification.read_at) return;
 
     const response = await fetch(
-      '/api/v1/notifications/' + notification.id + '/read',
+      "/api/v1/notifications/" + notification.id + "/read",
       {
-        method: 'PATCH',
+        method: "PATCH",
       },
     );
 
@@ -40,7 +45,9 @@ export function NotificationCenter({ userId, onRead }: NotificationCenterProps) 
         <div className="notificationEmpty">
           <div>✓</div>
           <h3>You&apos;re all caught up.</h3>
-          <p>New activity will appear here when something needs your attention.</p>
+          <p>
+            New activity will appear here when something needs your attention.
+          </p>
         </div>
       ) : (
         <ul className="notificationList">
@@ -56,7 +63,7 @@ export function NotificationCenter({ userId, onRead }: NotificationCenterProps) 
                   type="button"
                   className="notificationTitle"
                   onClick={() => void markRead(notification)}
-                  aria-label={'Mark ' + notification.title + ' as read'}
+                  aria-label={"Mark " + notification.title + " as read"}
                 >
                   {notification.title}
                 </button>

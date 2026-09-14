@@ -1,2 +1,33 @@
-import type { SupabaseClient } from '@supabase/supabase-js';
-export class PropertyRepository { constructor(private readonly db:SupabaseClient){} async create(input:{provider_id:string;name:string;property_type:string;description:string;address_line1:string;locality:string;city:string;state:string;postal_code:string;country_code:string}){const {data,error}=await this.db.from('properties').insert(input).select('*').single(); if(error) throw new Error('PROPERTY_CREATE_FAILED'); return data;} async listOwn(providerId:string){const {data,error}=await this.db.from('properties').select('*').eq('provider_id',providerId).order('created_at',{ascending:false}); if(error) throw new Error('PROPERTY_LIST_FAILED'); return data??[];} }
+import type { SupabaseClient } from "@supabase/supabase-js";
+export class PropertyRepository {
+  constructor(private readonly db: SupabaseClient) {}
+  async create(input: {
+    provider_id: string;
+    name: string;
+    property_type: string;
+    description: string;
+    address_line1: string;
+    locality: string;
+    city: string;
+    state: string;
+    postal_code: string;
+    country_code: string;
+  }) {
+    const { data, error } = await this.db
+      .from("properties")
+      .insert(input)
+      .select("*")
+      .single();
+    if (error) throw new Error("PROPERTY_CREATE_FAILED");
+    return data;
+  }
+  async listOwn(providerId: string) {
+    const { data, error } = await this.db
+      .from("properties")
+      .select("*")
+      .eq("provider_id", providerId)
+      .order("created_at", { ascending: false });
+    if (error) throw new Error("PROPERTY_LIST_FAILED");
+    return data ?? [];
+  }
+}
