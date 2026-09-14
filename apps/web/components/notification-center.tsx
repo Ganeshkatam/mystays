@@ -39,7 +39,7 @@ export function NotificationCenter({ userId, onRead }: NotificationCenterProps) 
       {notifications.length === 0 ? (
         <div className="notificationEmpty">
           <div>✓</div>
-          <h3>You're all caught up.</h3>
+          <h3>You&apos;re all caught up.</h3>
           <p>New activity will appear here when something needs your attention.</p>
         </div>
       ) : (
